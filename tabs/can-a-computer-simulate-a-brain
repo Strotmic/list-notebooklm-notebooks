@@ -1,0 +1,15 @@
+{
+  "title": "Can a computer simulate a brain?",
+  "description": "Can AI be used to simulate brain activity? This question has been the subject of intense speculation since computing's earliest days, when pioneers like Alan Turing and John von Neumann began exploring the conceptual relationships between artificial and biological computing. Today, this question with futuristic connotations becomes more practical, as advances in neuroscience and computing yield powerful datasets and simulation capabilities that we can begin to combine. Specifically, Google Research has been doing brain reconstructions at the resolution of a single synapse, the junction where a neuron sends information to a neighboring cell, and addressing key AI challenges. Our recently introduced public resource, ZAPBench, quantitatively measures progress on the problem of predicting neuronal activity across entire vertebrate brains. Use this notebook from our Google Research group to learn the latest on a long-standing question about human intelligence.",
+  "link": "https://notebooklm.google.com/notebook/74dc7f14-54cb-481b-9ee8-8347a6f5cba1",
+  "category": "Science",
+  "tags": [
+    "neuroscience",
+    "artificial intelligence",
+    "brain simulation",
+    "Google Research",
+    "ZAPBench"
+  ],
+  "author": "Google Research",
+  "date": "2026-05-06"
+}
