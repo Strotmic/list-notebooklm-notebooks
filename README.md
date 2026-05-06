@@ -12,12 +12,16 @@ A community-curated collection of public NotebookLM notebooks — browse what ot
 
 ## Submit your notebook
 
+**Easy way:** Just [open an issue](https://github.com/Strotmic/list-notebooklm-notebooks/issues/new) or a Pull Request with your public notebook URL — I'll take care of filling in the details and adding it to the collection.
+
+**Manual way (if you want full control):**
+
 1. Fork this repo
 2. Copy `tabs/example-tab.json` and rename it to something descriptive (e.g. `tabs/my-ai-research.json`)
 3. Fill in the fields (see schema below)
 4. Open a Pull Request
 
-Your submission will be reviewed and merged within a few days.
+Submissions are reviewed and merged within a few days.
 
 ### Schema
 
