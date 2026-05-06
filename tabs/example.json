@@ -1,14 +1,11 @@
 {
-  "title": "AI Coding Agents — How They Actually Work",
-  "description": "A deep dive into how modern AI coding agents reason, plan, and execute code. Covers agent loops, tool use, context management, and real-world limitations.",
+  "title": "Example json file for a notebook",
+  "description": "This is an example json file for a notebook. You can use this as a template to create your own notebook entry. Just replace the values with your own information and make sure to update the link to your notebook. Don't forget to add relevant tags and categorize your notebook appropriately.",
   "link": "https://notebooklm.google.com/notebook/your-share-link-here",
-  "category": "Research",
+  "category": "Example Category",
   "tags": [
-    "AI",
-    "coding agents",
-    "LLMs",
-    "tool use"
+    "Example"
   ],
-  "author": "your_github_username",
+  "author": "Strotmic",
   "date": "2026-05-06"
 }
