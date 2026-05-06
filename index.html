@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotebookLM Tabs — Community Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f2eb;
+      --bg2: #edeae1;
+      --ink: #1a1814;
+      --ink2: #5a564e;
+      --accent: #d4691e;
+      --accent2: #2d5a3d;
+      --card-bg: #faf8f3;
+      --border: #d8d3c8;
+      --tag-bg: #e8e3d8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1.5px solid var(--border);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .logo-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    .logo-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      background: var(--accent);
+      color: white;
+      padding: 2px 7px;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-submit {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      padding: 0.5rem 1.1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 5rem 2.5rem 3.5rem;
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--ink2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--ink2);
+      max-width: 500px;
+      line-height: 1.65;
+    }
+
+    /* ── CONTROLS ── */
+    .controls {
+      padding: 0 2.5rem 2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 220px;
+      max-width: 380px;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink2);
+      pointer-events: none;
+    }
+
+    #search {
+      width: 100%;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.875rem;
+      border: 1.5px solid var(--border);
+      background: var(--card-bg);
+      color: var(--ink);
+      padding: 0.55rem 0.8rem 0.55rem 2.4rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    #search:focus { border-color: var(--ink); }
+    #search::placeholder { color: var(--ink2); }
+
+    .filter-pills {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--ink2);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .pill:hover { border-color: var(--ink); color: var(--ink); }
+    .pill.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .count-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--ink2);
+      margin-left: auto;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5px;
+      padding: 1.5px;
+      margin-top: 0;
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: background 0.15s;
+      animation: fadeUp 0.35s ease both;
+      border: 1.5px solid transparent;
+    }
+
+    .card:hover {
+      background: white;
+      border-color: var(--border);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.25rem;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .card-desc {
+      font-size: 0.845rem;
+      color: var(--ink2);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      background: var(--tag-bg);
+      color: var(--ink2);
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    .card-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--ink2);
+    }
+
+    .card-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: color 0.12s;
+    }
+
+    .card-link:hover { color: var(--accent); }
+
+    /* ── EMPTY STATE ── */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 6rem 2rem;
+      color: var(--ink2);
+    }
+
+    .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+    .empty h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+
+    .empty p { font-size: 0.9rem; }
+
+    /* ── LOADING ── */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem;
+      gap: 0.75rem;
+      color: var(--ink2);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      grid-column: 1 / -1;
+    }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--ink);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top: 6rem;
+      padding: 2rem 2.5rem;
+      border-top: 1.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--ink2);
+    }
+
+    footer a { color: var(--ink); text-underline-offset: 3px; }
+
+    /* ── CONFIG BANNER ── */
+    .config-banner {
+      background: var(--accent);
+      color: white;
+      padding: 0.6rem 2.5rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .config-banner a { color: white; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span class="logo-text">NotebookLM Tabs</span>
+      <span class="logo-badge">Community</span>
+    </div>
+    <div class="header-actions">
+      <a class="btn-submit" id="submitLink" href="#" target="_blank">+ Submit yours</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <p class="hero-eyebrow">Open collection · community curated</p>
+    <h1>Notebooks worth<br /><em>exploring.</em></h1>
+    <p class="hero-sub">A community directory of public NotebookLM notebooks. Browse what others are building, and share your own.</p>
+  </section>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input id="search" type="text" placeholder="Search notebooks…" autocomplete="off" />
+    </div>
+    <div class="filter-pills" id="pills">
+      <button class="pill active" data-cat="All">All</button>
+      <button class="pill" data-cat="Research">Research</button>
+      <button class="pill" data-cat="Learning">Learning</button>
+      <button class="pill" data-cat="News">News</button>
+      <button class="pill" data-cat="Creative">Creative</button>
+      <button class="pill" data-cat="Business">Business</button>
+      <button class="pill" data-cat="Other">Other</button>
+    </div>
+    <span class="count-label" id="countLabel"></span>
+  </div>
+
+  <main>
+    <div class="grid" id="grid">
+      <div class="loading"><div class="spinner"></div> Loading notebooks…</div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Built with ♥ by the community · <a href="https://notebooklm.google.com" target="_blank">NotebookLM</a></p>
+    <p><a id="ghLink" href="#" target="_blank">View on GitHub →</a></p>
+  </footer>
+
+  <script>
+    // ─────────────────────────────────────────────
+    //  CONFIG — update these two values
+    // ─────────────────────────────────────────────
+    const GITHUB_REPO = 'Strotmic/awesome-notebooklm-notebooks'; // e.g. 'bleuzetim/notebooklm-tabs'
+    const BRANCH      = 'main';
+    // ─────────────────────────────────────────────
+
+    const API_BASE = `https://api.github.com/repos/${GITHUB_REPO}/contents/tabs?ref=${BRANCH}`;
+    const RAW_BASE = `https://raw.githubusercontent.com/${GITHUB_REPO}/${BRANCH}/tabs/`;
+    const PR_URL   = `https://github.com/${GITHUB_REPO}/compare`;
+
+    document.getElementById('submitLink').href = PR_URL;
+    document.getElementById('ghLink').href = `https://github.com/${GITHUB_REPO}`;
+
+    if (GITHUB_REPO === 'YOUR_USERNAME/YOUR_REPO') {
+      document.getElementById('configBanner').style.display = 'flex';
+    }
+
+    let allTabs = [];
+    let activeCategory = 'All';
+    let searchQuery = '';
+
+    // ── Fetch all tab JSON files from the repo ──
+    async function loadTabs() {
+      try {
+        const res = await fetch(API_BASE);
+        if (!res.ok) throw new Error(`GitHub API error: ${res.status}`);
+        const files = await res.json();
+        const jsonFiles = files.filter(f => f.name.endsWith('.json') && f.name !== 'example-tab.json');
+
+        const tabs = await Promise.all(
+          jsonFiles.map(async f => {
+            const r = await fetch(RAW_BASE + f.name);
+            return r.ok ? r.json() : null;
+          })
+        );
+
+        allTabs = tabs.filter(Boolean).sort((a, b) => new Date(b.date) - new Date(a.date));
+        render();
+      } catch (err) {
+        document.getElementById('grid').innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">📭</div>
+            <h3>Couldn't load notebooks</h3>
+            <p>Make sure the repo is public and the <code>tabs/</code> folder exists.<br/>
+            Error: ${err.message}</p>
+          </div>`;
+      }
+    }
+
+    // ── Render cards ──
+    function render() {
+      const q = searchQuery.toLowerCase();
+      const filtered = allTabs.filter(t => {
+        const matchCat = activeCategory === 'All' || t.category === activeCategory;
+        const matchQ   = !q
+          || t.title.toLowerCase().includes(q)
+          || t.description.toLowerCase().includes(q)
+          || (t.tags || []).some(tag => tag.toLowerCase().includes(q));
+        return matchCat && matchQ;
+      });
+
+      const count = filtered.length;
+      document.getElementById('countLabel').textContent =
+        count === 0 ? 'No results' : `${count} notebook${count !== 1 ? 's' : ''}`;
+
+      if (count === 0) {
+        document.getElementById('grid').innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">🔍</div>
+            <h3>Nothing found</h3>
+            <p>Try a different search or category.</p>
+          </div>`;
+        return;
+      }
+
+      document.getElementById('grid').innerHTML = filtered.map((t, i) => `
+        <div class="card" style="animation-delay:${i * 40}ms">
+          <div class="card-category">${escape(t.category)}</div>
+          <div class="card-title">${escape(t.title)}</div>
+          <div class="card-desc">${escape(t.description)}</div>
+          <div class="card-tags">${(t.tags || []).map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}</div>
+          <div class="card-footer">
+            <span class="card-author">by ${escape(t.author)} · ${formatDate(t.date)}</span>
+            <a class="card-link" href="${escape(t.link)}" target="_blank" rel="noopener">
+              Open
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function escape(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function formatDate(d) {
+      if (!d) return '';
+      return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+
+    // ── Category pills ──
+    document.getElementById('pills').addEventListener('click', e => {
+      const pill = e.target.closest('.pill');
+      if (!pill) return;
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      activeCategory = pill.dataset.cat;
+      render();
+    });
+
+    // ── Search ──
+    document.getElementById('search').addEventListener('input', e => {
+      searchQuery = e.target.value;
+      render();
+    });
+
+    loadTabs();
+  </script>
+</body>
+</html>

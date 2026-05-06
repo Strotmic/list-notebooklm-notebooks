@@ -1,0 +1,14 @@
+{
+  "title": "AI Coding Agents — How They Actually Work",
+  "description": "A deep dive into how modern AI coding agents reason, plan, and execute code. Covers agent loops, tool use, context management, and real-world limitations.",
+  "link": "https://notebooklm.google.com/notebook/your-share-link-here",
+  "category": "Research",
+  "tags": [
+    "AI",
+    "coding agents",
+    "LLMs",
+    "tool use"
+  ],
+  "author": "your_github_username",
+  "date": "2026-05-06"
+}
