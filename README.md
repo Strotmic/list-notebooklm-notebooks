@@ -8,7 +8,7 @@ A community-curated collection of public NotebookLM notebooks — browse what ot
 
 ## Browse the collection
 
-👉 **[View the gallery](https://strotmic.github.io/awesome-notebooklm-notebooks/)**
+👉 **[View the gallery](https://strotmic.github.io/list-notebooklm-notebooks/)**
 
 ## Submit your notebook
 
