@@ -19,6 +19,18 @@
       --tag-bg: #e8e3d8;
     }
 
+    [data-theme="dark"] {
+      --bg: #131210;
+      --bg2: #1c1a17;
+      --ink: #f0ece3;
+      --ink2: #9a9286;
+      --accent: #e07a38;
+      --accent2: #4a8a5e;
+      --card-bg: #1a1814;
+      --border: #2e2b26;
+      --tag-bg: #252219;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -89,6 +101,25 @@
 
     .btn-submit:hover {
       background: var(--accent);
+    }
+
+    .btn-theme {
+      background: none;
+      border: 1.5px solid var(--border);
+      color: var(--ink2);
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .btn-theme:hover {
+      border-color: var(--ink);
+      color: var(--ink);
     }
 
     /* ── HERO ── */
@@ -217,7 +248,7 @@
     }
 
     .card:hover {
-      background: white;
+      background: var(--bg2);
       border-color: var(--border);
     }
 
@@ -377,6 +408,17 @@
       <span class="logo-badge">Community</span>
     </div>
     <div class="header-actions">
+      <button class="btn-theme" id="themeToggle" aria-label="Toggle dark mode">
+        <svg id="iconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="iconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
       <a class="btn-submit" id="submitLink" href="#" target="_blank">+ Submit yours</a>
     </div>
   </header>
@@ -418,6 +460,27 @@
   </footer>
 
   <script>
+    // ── Dark mode ──
+    const html = document.documentElement;
+    const sunIcon  = document.getElementById('iconSun');
+    const moonIcon = document.getElementById('iconMoon');
+
+    function applyTheme(dark) {
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+      sunIcon.style.display  = dark ? 'block' : 'none';
+      moonIcon.style.display = dark ? 'none'  : 'block';
+    }
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const saved = localStorage.getItem('theme');
+    applyTheme(saved ? saved === 'dark' : prefersDark);
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const isDark = html.getAttribute('data-theme') === 'dark';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+      applyTheme(!isDark);
+    });
+
     // ─────────────────────────────────────────────
     //  CONFIG — update these two values
     // ─────────────────────────────────────────────
@@ -521,7 +584,8 @@
 
     function formatDate(d) {
       if (!d) return '';
-      return new Date(d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      const [y, m, day] = d.split('-');
+      return new Date(y, m - 1, day).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     }
 
     // ── Category pills ──
