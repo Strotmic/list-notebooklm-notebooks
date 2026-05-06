@@ -68,3 +68,17 @@ Found a bug in the site or want to improve the gallery UI? PRs are welcome on `i
 ## License
 
 All notebook metadata submitted to this repo is released under [CC0](https://creativecommons.org/publicdomain/zero/1.0/) — the content of the notebooks themselves belongs to their respective authors.
+
+---
+
+## Roadmap
+
+The current submission flow requires a GitHub account and a pull request. That's a bit technical for a general audience, so a proper deployment is in progress.
+
+**Planned:**
+- A hosted web app with a database backend
+- A simple submission form — no GitHub account or pull request needed
+- Moderation tools so submissions can be reviewed without touching code
+- The gallery will stay open-source; only the backend infra will move off GitHub Pages
+
+Until then, the PR-based flow is the way to submit. Thanks for bearing with it.
