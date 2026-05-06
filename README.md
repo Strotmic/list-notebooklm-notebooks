@@ -42,7 +42,7 @@ Submissions are reviewed and merged within a few days.
 | `title` | ✅ | Name of your notebook |
 | `description` | ✅ | Short summary (1–2 sentences) |
 | `link` | ✅ | Public NotebookLM share link |
-| `category` | ✅ | One of: `Research`, `Learning`, `News`, `Creative`, `Business`, `Other` |
+| `category` | ✅ | One of: `Research`, `Science`, `Learning`, `News`, `Creative`, `Business`, `Other` |
 | `tags` | ✅ | 1–5 tags describing the content |
 | `author` | ✅ | Your GitHub username |
 | `date` | ✅ | Date added (YYYY-MM-DD) |
@@ -59,6 +59,7 @@ Submissions are reviewed and merged within a few days.
 | Category | Examples |
 |---|---|
 | 🔬 Research | Academic papers, scientific topics |
+| 🧪 Science | Neuroscience, physics, biology, computing |
 | 📚 Learning | Tutorials, explainers, study guides |
 | 📰 News | Current events, analysis |
 | 🎨 Creative | Writing, worldbuilding, fiction |

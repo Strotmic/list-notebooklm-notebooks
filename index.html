@@ -439,6 +439,7 @@
     <div class="filter-pills" id="pills">
       <button class="pill active" data-cat="All">All</button>
       <button class="pill" data-cat="Research">Research</button>
+      <button class="pill" data-cat="Science">Science</button>
       <button class="pill" data-cat="Learning">Learning</button>
       <button class="pill" data-cat="News">News</button>
       <button class="pill" data-cat="Creative">Creative</button>
@@ -484,6 +485,7 @@
     // ─────────────────────────────────────────────
     //  CONFIG — update these two values
     // ─────────────────────────────────────────────
+    const NAMED_CATS  = ['Research', 'Science', 'Learning', 'News', 'Creative', 'Business'];
     const GITHUB_REPO = 'Strotmic/list-notebooklm-notebooks'; // e.g. 'bleuzetim/notebooklm-tabs'
     const BRANCH      = 'main';
     // ─────────────────────────────────────────────
@@ -535,7 +537,9 @@
     function render() {
       const q = searchQuery.toLowerCase();
       const filtered = allTabs.filter(t => {
-        const matchCat = activeCategory === 'All' || t.category === activeCategory;
+        const matchCat = activeCategory === 'All'
+          || (activeCategory === 'Other' && !NAMED_CATS.includes(t.category))
+          || t.category === activeCategory;
         const matchQ   = !q
           || t.title.toLowerCase().includes(q)
           || t.description.toLowerCase().includes(q)
