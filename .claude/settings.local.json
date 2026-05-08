@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs sed -i 's/\"category\": \"Health\"/\"category\": \"Humanitarian Health\"/')"
+    ]
+  }
+}
