@@ -66,6 +66,35 @@ Submissions are reviewed and merged within a few days.
 | 💼 Business | Industry reports, strategy, finance |
 | 🗂️ Other | Anything that doesn't fit above |
 
+## What this project is / is not
+
+Public NotebookLM notebooks are otherwise hard to discover. This project exists to fix that — a community directory where notebooks can be found and shared.
+
+**This project is:**
+- A community directory of public NotebookLM notebooks
+- A discovery tool for notebooks others have shared
+- An open-source gallery anyone can contribute to
+
+**This project is not (currently):**
+- A curated editorial library with gatekeeping beyond basic quality guidelines
+- A marketplace, promotional channel, or paid placement platform
+- A source of affiliate links or ad-supported content
+
+**What may come later (see Roadmap):**
+- A hosted submission form with user accounts, saved notebooks, and lists
+- Moderation tooling for reviewing submissions without touching code
+- Sponsorship or ads — only if hosting costs make it necessary, and not as a primary direction
+
+**Policy positions:**
+- No paid placement or promoted listings
+- No affiliate links
+- Analytics/tracking: only what GitHub Pages provides by default (no third-party tracking added)
+- Submitted notebook metadata is CC0 (see License); notebook content belongs to its authors
+- Moderation criteria: public link required, genuine educational or informational value, no spam
+- The project does not take responsibility for the content of linked notebooks — authors own their work
+
+If you have questions or concerns about direction, open an issue.
+
 ## Contributing (beyond notebooks)
 
 Found a bug in the site or want to improve the gallery UI? PRs are welcome on `index.html` as well. Open an issue first if it's a bigger change.
